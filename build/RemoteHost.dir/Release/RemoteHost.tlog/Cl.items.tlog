@@ -1,0 +1,6 @@
+C:\Users\Usuario\OneDrive\Área de Trabalho\Discord2\host\main_host.cpp;C:\Users\Usuario\OneDrive\Área de Trabalho\Discord2\build\RemoteHost.dir\Release\main_host.obj
+C:\Users\Usuario\OneDrive\Área de Trabalho\Discord2\host\capture\dxgi_capture.cpp;C:\Users\Usuario\OneDrive\Área de Trabalho\Discord2\build\RemoteHost.dir\Release\dxgi_capture.obj
+C:\Users\Usuario\OneDrive\Área de Trabalho\Discord2\host\encode\hw_encoder.cpp;C:\Users\Usuario\OneDrive\Área de Trabalho\Discord2\build\RemoteHost.dir\Release\hw_encoder.obj
+C:\Users\Usuario\OneDrive\Área de Trabalho\Discord2\host\network\video_sender.cpp;C:\Users\Usuario\OneDrive\Área de Trabalho\Discord2\build\RemoteHost.dir\Release\video_sender.obj
+C:\Users\Usuario\OneDrive\Área de Trabalho\Discord2\host\network\input_receiver.cpp;C:\Users\Usuario\OneDrive\Área de Trabalho\Discord2\build\RemoteHost.dir\Release\input_receiver.obj
+C:\Users\Usuario\OneDrive\Área de Trabalho\Discord2\host\input\input_injector.cpp;C:\Users\Usuario\OneDrive\Área de Trabalho\Discord2\build\RemoteHost.dir\Release\input_injector.obj

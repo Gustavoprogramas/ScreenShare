@@ -1,0 +1,5 @@
+C:\Users\Usuario\OneDrive\Área de Trabalho\Discord2\client\main_client.cpp;C:\Users\Usuario\OneDrive\Área de Trabalho\Discord2\build\RemoteClient.dir\Release\main_client.obj
+C:\Users\Usuario\OneDrive\Área de Trabalho\Discord2\client\network\video_receiver.cpp;C:\Users\Usuario\OneDrive\Área de Trabalho\Discord2\build\RemoteClient.dir\Release\video_receiver.obj
+C:\Users\Usuario\OneDrive\Área de Trabalho\Discord2\client\network\input_sender.cpp;C:\Users\Usuario\OneDrive\Área de Trabalho\Discord2\build\RemoteClient.dir\Release\input_sender.obj
+C:\Users\Usuario\OneDrive\Área de Trabalho\Discord2\client\decode\hw_decoder.cpp;C:\Users\Usuario\OneDrive\Área de Trabalho\Discord2\build\RemoteClient.dir\Release\hw_decoder.obj
+C:\Users\Usuario\OneDrive\Área de Trabalho\Discord2\client\render\sdl_renderer.cpp;C:\Users\Usuario\OneDrive\Área de Trabalho\Discord2\build\RemoteClient.dir\Release\sdl_renderer.obj

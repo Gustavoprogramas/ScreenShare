@@ -1,0 +1,6 @@
+C:/Users/Usuario/OneDrive/Área de Trabalho/Discord2/build/CMakeFiles/imgui.dir
+C:/Users/Usuario/OneDrive/Área de Trabalho/Discord2/build/CMakeFiles/RemoteHost.dir
+C:/Users/Usuario/OneDrive/Área de Trabalho/Discord2/build/CMakeFiles/RemoteClient.dir
+C:/Users/Usuario/OneDrive/Área de Trabalho/Discord2/build/CMakeFiles/INSTALL.dir
+C:/Users/Usuario/OneDrive/Área de Trabalho/Discord2/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/Usuario/OneDrive/Área de Trabalho/Discord2/build/CMakeFiles/ZERO_CHECK.dir

@@ -1,0 +1,10 @@
+^C:\USERS\USUARIO\ONEDRIVE\ÁREA DE TRABALHO\DISCORD2\BUILD\CMAKEFILES\CAE7F2E7B023C764795E826FB2F82B03\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/Usuario/OneDrive/Área de Trabalho/Discord2" "-BC:/Users/Usuario/OneDrive/Área de Trabalho/Discord2/build" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "C:/Users/Usuario/OneDrive/Área de Trabalho/Discord2/build/RemoteDesktop.slnx"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

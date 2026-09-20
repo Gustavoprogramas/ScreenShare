@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus WebRTC Screen Share</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="glass-container">
+        <header>
+            <div class="logo">
+                <span class="dot"></span>
+                <h1>Nexus Share</h1>
+            </div>
+            <p>Peer-to-Peer ultra-fast screen sharing</p>
+        </header>
+
+        <main>
+            <div class="controls-card">
+                <!-- Share Settings -->
+                <h2>Share Your Screen</h2>
+                <div class="settings">
+                    <div class="setting-group">
+                        <label for="userName">Your Name</label>
+                        <input type="text" id="userName" placeholder="e.g. João" maxlength="20">
+                    </div>
+
+                    <div class="setting-group">
+                        <label for="resolution">Resolution</label>
+                        <select id="resolution">
+                            <option value="1080">1080p</option>
+                            <option value="720">720p</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label for="framerate">Framerate (FPS)</label>
+                        <select id="framerate">
+                            <option value="60">60 fps</option>
+                            <option value="30">30 fps</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-group">
+                        <label for="bitrate">Bitrate</label>
+                        <select id="bitrate">
+                            <option value="12000">12 Mbps (Ultra)</option>
+                            <option value="8000" selected>8 Mbps (High)</option>
+                            <option value="5000">5 Mbps (Medium)</option>
+                            <option value="2500">2.5 Mbps (Low)</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-group">
+                        <label>
+                            <input type="checkbox" id="shareAudio" checked> Share Audio
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="actions">
+                    <button id="btnShare" class="btn primary">Start Sharing</button>
+                    <button id="btnStop" class="btn danger hidden">Stop Sharing</button>
+                </div>
+
+                <!-- Active Streams List -->
+                <div class="streams-section">
+                    <h2>Active Streams</h2>
+                    <div id="streamsList" class="streams-list">
+                        <p class="no-streams">No active streams</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-card" id="videoCard">
+                <div class="video-wrapper">
+                    <video id="remoteVideo" autoplay playsinline></video>
+                    
+                    <!-- Fullscreen button -->
+                    <button id="btnFullscreen" class="fullscreen-btn" title="Fullscreen">
+                        <svg viewBox="0 0 24 24" width="22" height="22" fill="white"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                    </button>
+
+                    <!-- Overlay when no video is playing -->
+                    <div id="videoPlaceholder" class="video-placeholder">
+                        <div class="icon">💻</div>
+                        <p>Select an active stream to watch</p>
+                    </div>
+                </div>
+                
+                <div class="status-bar">
+                    <span class="status-indicator disconnected" id="statusDot"></span>
+                    <span id="statusText">Disconnected</span>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-peer@9.11.1/simplepeer.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

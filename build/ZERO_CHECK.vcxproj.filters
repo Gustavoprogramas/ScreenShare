@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Usuario\OneDrive\Área de Trabalho\Discord2\build\CMakeFiles\cae7f2e7b023c764795e826fb2f82b03\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{50603A1A-EC0D-3C67-919F-126A5F5CE2EB}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
