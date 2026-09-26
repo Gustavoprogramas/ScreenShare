@@ -1,1 +1,1 @@
-# Feito por IA.
+# Faça lives sem que a Janja permita
