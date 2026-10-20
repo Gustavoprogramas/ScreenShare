@@ -1,0 +1,51 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.gustavoprogramas.nexusshare'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'com.gustavoprogramas.nexusshare'
+        minSdk 26
+        targetSdk 35
+        versionCode 1
+        versionName '1.3.0'
+    }
+
+    // Chave própria do app (instalado fora da Play Store). Fica só no seu PC, em
+    // signing/nexus-share.jks (fora do Git), ou no segredo NEXUS_KEYSTORE_B64 do GitHub.
+    // Com a mesma chave, versões novas instalam por cima. Sem ela, usa a chave de debug.
+    def nexusKeystore = file(System.getenv('NEXUS_KEYSTORE') ?: '../signing/nexus-share.jks')
+    def nexusPassword = System.getenv('NEXUS_KEYSTORE_PASSWORD') ?: 'nexusshare'
+    signingConfigs {
+        nexus {
+            storeFile nexusKeystore
+            storePassword nexusPassword
+            keyAlias 'nexus'
+            keyPassword nexusPassword
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig nexusKeystore.exists() ? signingConfigs.nexus : signingConfigs.debug
+        }
+        debug {
+            if (nexusKeystore.exists()) signingConfig signingConfigs.nexus
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    lint {
+        // O app não vai para a Play Store; avisos de política da loja não devem travar o build.
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}

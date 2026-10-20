@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Nexus Share</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { min-height: 100%; }
+        body {
+            background: linear-gradient(135deg, #0f172a, #1e1b4b);
+            color: #f8fafc;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            display: flex; align-items: center; justify-content: center;
+            min-height: 100vh; padding: 24px 16px;
+        }
+        .box {
+            width: 100%; max-width: 440px; padding: 28px 22px; border-radius: 20px;
+            background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.10);
+            box-shadow: 0 20px 60px rgba(0,0,0,.4);
+        }
+        .logo { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; background: #c084fc; box-shadow: 0 0 12px #c084fc; }
+        h1 {
+            font-size: 1.6rem; letter-spacing: -.5px;
+            background: linear-gradient(90deg, #818cf8, #c084fc);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .subtitle { color: #94a3b8; margin-bottom: 24px; font-size: .95rem; }
+        label { display: block; margin-bottom: 8px; color: #94a3b8; font-size: .8rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: .5px; }
+        input {
+            width: 100%; padding: 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,.15);
+            background: rgba(0,0,0,.25); color: white; font-size: 1.1rem; outline: none;
+            font-family: ui-monospace, "Roboto Mono", monospace; letter-spacing: .3px;
+        }
+        input:focus { border-color: #6366f1; box-shadow: 0 0 0 2px rgba(99,102,241,.25); }
+        button {
+            width: 100%; padding: 15px; margin-top: 14px; border: 0; border-radius: 12px;
+            font-size: 1rem; font-weight: 600; color: white; cursor: pointer;
+            background: linear-gradient(135deg, #6366f1, #818cf8);
+            box-shadow: 0 4px 12px rgba(99,102,241,.3);
+        }
+        button:active { transform: scale(.98); }
+        button:disabled { opacity: .5; }
+        #status { min-height: 22px; margin-top: 14px; text-align: center; color: #fca5a5; font-size: .9rem; line-height: 1.45; }
+        #status.info { color: #94a3b8; }
+        .steps { margin-top: 22px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.10); }
+        .steps h2 { font-size: .85rem; color: #cbd5e1; margin-bottom: 10px; }
+        .steps ol { padding-left: 20px; color: #94a3b8; font-size: .88rem; line-height: 1.55; }
+        .steps li + li { margin-top: 6px; }
+        .steps strong { color: #e2e8f0; font-weight: 600; }
+        .badge { display: inline-block; margin-top: 16px; padding: 6px 10px; border-radius: 999px;
+            background: rgba(99,102,241,.14); border: 1px solid rgba(99,102,241,.4); color: #c7d2fe; font-size: .8rem; }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="logo"><span class="dot"></span><h1>Nexus Share</h1></div>
+    <p class="subtitle">Assista às telas compartilhadas na sua rede.</p>
+
+    <label for="host">IP do PC que hospeda</label>
+    <input id="host" type="text" inputmode="url" autocomplete="off" autocapitalize="off" spellcheck="false"
+           placeholder="ex.: 100.101.102.103">
+    <button id="connect">Conectar</button>
+    <div id="status" role="status"></div>
+
+    <span class="badge">Este app só assiste — não compartilha a tela do celular.</span>
+
+    <div class="steps">
+        <h2>Primeira vez?</h2>
+        <ol>
+            <li>Instale o <strong>Tailscale</strong> no PC e no celular e entre com a <strong>mesma conta</strong> nos dois (ou use ZeroTier na mesma rede).</li>
+            <li>No PC, abra o Nexus Share e clique em <strong>Hospedar (LAN / VPN)</strong>. Ele mostra os IPs dele.</li>
+            <li>Digite aqui o IP do Tailscale do PC (começa com <strong>100.</strong>). No mesmo Wi-Fi, o IP da rede local também funciona.</li>
+        </ol>
+    </div>
+</div>
+<script>
+    const bridge = window.NexusAndroid;
+    const input = document.getElementById('host');
+    const button = document.getElementById('connect');
+    const status = document.getElementById('status');
+    input.value = (bridge && bridge.getSavedHost()) || '';
+    const error = bridge && bridge.takeError();
+    if (error) status.textContent = error;
+
+    function normalize(text) {
+        let value = text.trim().replace(/^https?:\/\//i, '').split(/[\/?#]/)[0];
+        if (value.startsWith('[')) value = value.slice(1, value.indexOf(']'));
+        else if ((value.match(/:/g) || []).length === 1) value = value.split(':')[0];
+        return value;
+    }
+    function connect() {
+        const host = normalize(input.value);
+        if (!host) { status.className = ''; status.textContent = 'Digite o IP do PC que hospeda.'; input.focus(); return; }
+        if (!bridge) { status.textContent = 'Abra esta tela pelo app Nexus Share.'; return; }
+        input.value = host;
+        status.className = 'info';
+        status.textContent = 'Conectando a ' + host + '...';
+        button.disabled = true;
+        bridge.connect(host);
+    }
+    button.addEventListener('click', connect);
+    input.addEventListener('keydown', event => { if (event.key === 'Enter') connect(); });
+</script>
+</body>
+</html>

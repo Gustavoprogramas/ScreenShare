@@ -1,0 +1,65 @@
+name: Android APK (Nexus Share)
+
+on:
+  push:
+    paths:
+      - 'webrtc_app/android/**'
+      - '.github/workflows/android-apk.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: webrtc_app/android
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Chave de assinatura
+        env:
+          NEXUS_KEYSTORE_B64: ${{ secrets.NEXUS_KEYSTORE_B64 }}
+        run: |
+          mkdir -p signing
+          if [ -n "$NEXUS_KEYSTORE_B64" ]; then
+            echo "$NEXUS_KEYSTORE_B64" | base64 -d > signing/nexus-share.jks
+            echo "Usando a chave do segredo NEXUS_KEYSTORE_B64."
+          else
+            echo "::warning::Segredo NEXUS_KEYSTORE_B64 não configurado: APK assinado com chave temporária. Para atualizar o app depois, desinstale a versão anterior ou configure o segredo."
+          fi
+
+      - name: Compilar APK
+        run: |
+          chmod +x gradlew
+          ./gradlew --no-daemon assembleRelease
+          cp app/build/outputs/apk/release/app-release.apk "$GITHUB_WORKSPACE/NexusShare-Android.apk"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: NexusShare-Android
+          path: NexusShare-Android.apk
+
+      - name: Publicar na página de Releases
+        working-directory: ${{ github.workspace }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION=$(sed -n "s/.*versionName '\(.*\)'.*/\1/p" webrtc_app/android/app/build.gradle)
+          TAG="android-v${VERSION}"
+          NOTES="App Android do Nexus Share (somente assistir). Instale o APK no celular, ligue o Tailscale e digite o IP do PC que hospeda."
+          if gh release view "$TAG" > /dev/null 2>&1; then
+            gh release upload "$TAG" NexusShare-Android.apk --clobber
+          else
+            gh release create "$TAG" NexusShare-Android.apk --target "$GITHUB_SHA" \
+              --title "Nexus Share Android ${VERSION}" --notes "$NOTES"
+          fi

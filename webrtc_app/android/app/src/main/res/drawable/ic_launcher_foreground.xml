@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tela com botão "play": assistir a tela do PC. Área segura do ícone adaptativo: 66dp centrais. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="#818CF8"
+        android:pathData="M33,36h42a4,4 0,0 1,4 4v26a4,4 0,0 1,-4 4H33a4,4 0,0 1,-4 -4V40a4,4 0,0 1,4 -4z" />
+    <path
+        android:fillColor="#1E1B4B"
+        android:pathData="M34,41h40v24H34z" />
+    <path
+        android:fillColor="#C084FC"
+        android:pathData="M49,46.5v13l11,-6.5z" />
+    <path
+        android:fillColor="#818CF8"
+        android:pathData="M46,72h16v3H46z" />
+</vector>

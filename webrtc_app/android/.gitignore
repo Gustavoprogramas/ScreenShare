@@ -1,0 +1,9 @@
+.gradle/
+build/
+app/build/
+local.properties
+.idea/
+*.iml
+# Chave de assinatura: nunca enviar ao repositório (ele é público).
+signing/*.jks
+signing/*.b64.txt
